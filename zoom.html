@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Zoom de imagen - Visión Artificial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            opacity: 0.9;
+        }
+
+        /* Navegación */
+        .nav-back {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-back a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: opacity 0.3s;
+        }
+
+        .nav-back a:hover {
+            opacity: 0.7;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Sección de código */
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 400;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        /* Bloque de código */
+        .code-block {
+            background: #2d2d2d;
+            border-radius: 6px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: #f8f8f2;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .code-block code {
+            color: #f8f8f2;
+        }
+
+        /* Colores de sintaxis básicos */
+        .keyword { color: #ff79c6; }
+        .string { color: #50fa7b; }
+        .comment { color: #6272a4; font-style: italic; }
+        .function { color: #8be9fd; }
+        .number { color: #bd93f9; }
+
+        /* Glosario */
+        .glosario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .funcion-card {
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            border-radius: 4px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .funcion-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .funcion-card h3 {
+            color: #667eea;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .funcion-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .funcion-card .parametros {
+            background: white;
+            padding: 0.8rem;
+            border-radius: 4px;
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+        }
+
+        .funcion-card .parametros strong {
+            color: #333;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .funcion-card .parametros code {
+            background: #e8e8e8;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            color: #764ba2;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .code-block {
+                padding: 1rem;
+            }
+
+            .code-block pre {
+                font-size: 0.8rem;
+            }
+
+            .glosario-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="nav-back">
+        <a href="index.html">← Volver al inicio</a>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>7. Zoom de imagen</h1>
+        <p></p>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="container">
+        <!-- Sección de código -->
+        <section class="section">
+            <h2>📝 Código del Ejemplo</h2>
+            <div class="code-block">
+                <pre>
+def zoom():
+    #23 de octubre
+    import cv2
+    #carga la imagen de una variable
+    img_original=cv2.imread("Gatooo.jpg")
+    #creando variable para el valor del zoom original
+    zoom=1.0
+
+    while True:
+        #espera 4 parametros: la variable de la imagen original, la cantidad del zoom, controlar
+        #el tamaño en el eje x y en el eje y
+        img=cv2.resize(img_original,None,fx=zoom,fy=zoom)
+        #espera 2 parametro:titulo de la ventana y la imagen a mostrar
+        #cv2.imshow('imagen original',img_original)
+        cv2.imshow("Imagen nueva",img)
+        #cv2.imshow("Imagen pequeña", imgpequena)
+        tecla=cv2.waitKey(0)
+        if tecla==ord('+'):
+            zoom=zoom*1.2
+        elif tecla==ord('-'):
+            zoom=zoom*0.8
+        elif tecla==ord('o'):
+            zoom=1.0
+        elif tecla==ord("x"):
+            break
+
+    #cv2.waitKey(0)
+    cv2.destroyWindow()
+
+'''__main__ es el nombre interno del archivo cuando se ejecuta en si mismo'''
+if __name__=="__main__":
+    zoom()
+
+                    </pre>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>📚 Glosario de Funciones</h3>
+
+                <div class="glosario-item">
+                    <h4>__main__ </h4>
+                    <p>es el nombre interno del archivo cuando se ejecuta en si mismo</p>
+                    <h4>waitKey</h4>
+                    <p>pausa la ejecución de un programa, ya sea indefinidamente o por un tiempo específico, y espera a que el usuario presione una tecla, devolviendo el código ASCII de la tecla pulsada o un valor negativo si transcurre el tiempo sin que se presione ninguna tecla</p>
+                </div>
+               
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
